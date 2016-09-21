@@ -12,20 +12,7 @@ namespace osu.Framework.Graphics.Containers
 {
     public class ScrollContainer : LargeContainer
     {
-        /// <summary>
-        /// Determines whether the scroll dragger appears on the left side. If not, then it always appears on the right side.
-        /// </summary>
-        public bool ScrollDraggerOnLeft
-        {
-            get { return scrollbar.Anchor == Anchor.TopLeft; }
-
-            set
-            {
-                scrollbar.Anchor = value ? Anchor.TopLeft : Anchor.TopRight;
-                scrollbar.Origin = value ? Anchor.TopLeft : Anchor.TopRight;
-            }
-        }
-
+        public bool ScrollDraggerOnLeft;
 
         private AutoSizeContainer content = new AutoSizeContainer();
         private ScrollBar scrollbar;
@@ -47,7 +34,12 @@ namespace osu.Framework.Graphics.Containers
         {
             base.Load();
 
-            AddTopLevel(scrollbar = new ScrollBar(offset));
+            AddTopLevel(scrollbar = new ScrollBar(offset)
+            {
+                Anchor = ScrollDraggerOnLeft ? Anchor.TopLeft : Anchor.TopRight,
+                Origin = ScrollDraggerOnLeft ? Anchor.TopLeft : Anchor.TopRight
+            });
+
             Add(content);
 
             content.OnAutoSize += contentAutoSize;

@@ -141,12 +141,14 @@ namespace osu.Framework.Graphics.Shaders
         Texture2D,
         Texture3D,
         Position,
-        Colour
+        Colour,
+        PositionColour
     }
 
     public enum FragmentShader
     {
         Texture,
-        Colour
+        Colour,
+        RoundedBox
     }
 }

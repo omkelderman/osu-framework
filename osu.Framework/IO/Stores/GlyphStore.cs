@@ -47,7 +47,16 @@ namespace osu.Framework.IO.Stores
             Character c;
 
             if (!font.Characters.TryGetValue(name[0], out c))
-                return null;
+            {
+                if (!font.Characters.TryGetValue('x', out c))
+                {
+                    // this shouldnt happen anymore, since 'x' is a char that exists
+                    Console.WriteLine("NOP [{0}] -> {1}", name[0], name);
+                    return null;
+                }
+            }
+
+            Console.WriteLine("YES [{0}] ({1}) -> {2}", name[0], c, name);
 
             RawTexture page = getTexturePage(c.TexturePage);
 
